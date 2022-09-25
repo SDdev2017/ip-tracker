@@ -37,7 +37,6 @@ function App() {
         let data = await response.json();
         setSearchInput(data.ip);
         setFetchedData(data);
-        console.log(data);
       }else{
         if(response.status >= 500){
           setAlertMsg(<p>It seems like you have no connection!<br/> Please check your network and try again!</p>);
@@ -53,7 +52,7 @@ function App() {
 
   return (
     <>
-      {showAlert ? <AlertBox setShowAlert={setShowAlert} alertMsg={alertMsg}/> : null}
+      {showAlert && <AlertBox setShowAlert={setShowAlert} alertMsg={alertMsg}/>}
       <Search 
         searchInput={searchInput} 
         setSearchInput={setSearchInput} 
