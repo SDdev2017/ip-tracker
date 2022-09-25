@@ -1,7 +1,9 @@
 import { MapContainer, TileLayer, Marker, Popup,useMap } from 'react-leaflet'
+import { PropTypes } from 'prop-types';
+
 import '../styles/App.scss';
 
-function Map({fetchedData}){
+function Map({ fetchedData }){
     if(fetchedData === null){
         return null;
     }
@@ -28,6 +30,14 @@ function ChangeMapView({ fetchedData }) {
     map.setView([fetchedData.location.lat, fetchedData.location.lng], map.getZoom());
   
     return null;
-  }
+}
+
+Map.propTypes = {
+    fetchedData: PropTypes.object
+}
+
+ChangeMapView.propTypes = {
+    fetchedData: PropTypes.object
+}
 
 export default Map;

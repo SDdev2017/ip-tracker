@@ -1,5 +1,7 @@
 import '../styles/App.scss';
 
+import { PropTypes } from 'prop-types';
+
 function Data({fetchedData}){
     return(
         <div className="data-container">
@@ -21,6 +23,10 @@ function Data({fetchedData}){
             </div>
         </div>
     );
+}
+
+Data.propTypes = {
+    fetchedData: PropTypes.object
 }
 
 export default Data;
