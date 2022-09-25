@@ -6,6 +6,8 @@
 It also allows you to search by domain name or ip address.
 </p>
 
+<img src='./project/src/assets/screenshot.png' alt='IP tracker screenshot' />
+
 ## 🚀 Demo
 <a href='https://ip-tracker-taupe-chi.vercel.app/'>https://ip-tracker-taupe-chi.vercel.app/</a>
 
