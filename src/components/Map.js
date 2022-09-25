@@ -6,7 +6,7 @@ function Map({fetchedData}){
         return null;
     }
     return(
-        <div className="map-container" id='map'>
+        <main className="map-container" id='map'>
         <MapContainer center={[fetchedData.location.lat,fetchedData.location.lng]} zoom={5} scrollWheelZoom={true}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -19,7 +19,7 @@ function Map({fetchedData}){
                 </Popup>
             </Marker>
         </MapContainer>  
-        </div>
+        </main>
     );
 }
 

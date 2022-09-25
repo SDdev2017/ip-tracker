@@ -18,6 +18,7 @@ function App() {
     const fetchip = async (ip) => {
       //RegEx checking whether ip parameter is a valid domain or ip address;
       const re = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
+      let response = {};
       
       if(ip !== ''){
         if(re.test(ip)){
@@ -29,8 +30,13 @@ function App() {
   
       //REST API url
       const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_r39kpSudYWC0j48z40eei4tD0ODbw${ip}`;
-  
-      let response = await fetch(url);
+
+      try{
+        response = await fetch(url);
+      }catch(e){
+        setAlertMsg(<p>It seems like you're not connected to internet.<br/>Please try again.</p>);
+        setShowAlert(true);
+      }
 
       //check if response status is 200-299. Otherwise show alert box with message to the user.
       if(response.ok){
@@ -38,12 +44,10 @@ function App() {
         setSearchInput(data.ip);
         setFetchedData(data);
       }else{
-        if(response.status >= 500){
-          setAlertMsg(<p>It seems like you have no connection!<br/> Please check your network and try again!</p>);
-        }else{
+        if(response.status === 400){     
           setAlertMsg(<p>It seems like you have entered invalid IP or domain name.<br/>Please try again.</p>);
+          setShowAlert(true);
         }
-        setShowAlert(true);
       }
     }
 

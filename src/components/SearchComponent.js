@@ -3,11 +3,11 @@ import Data from './Data';
 
 function Search({searchInput, setSearchInput, fetchedData, setTrigger, triggerFetch}){
     return(
-        <section className="search-container">
+        <header className='search-container'>
             <h1>IP Address Tracker</h1>
             <div className='search-input-wrapper'>
                 <input 
-                    type='text' 
+                    type='search' 
                     name='search-input' 
                     value={searchInput} 
                     placeholder='Search for any IP address or domain'
@@ -16,7 +16,7 @@ function Search({searchInput, setSearchInput, fetchedData, setTrigger, triggerFe
                 <button onClick={() => {setTrigger(!triggerFetch)}}>Search</button>
             </div>
             <Data fetchedData={fetchedData}/>
-        </section>
+        </header>
     );
 }
 
