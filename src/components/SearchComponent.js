@@ -15,7 +15,7 @@ function Search({searchInput, setSearchInput, fetchedData, setTrigger, triggerFe
                     />
                 <button onClick={() => {setTrigger(!triggerFetch)}}>Search</button>
             </div>
-            <Data fetchedData={fetchedData}/>
+            { fetchedData && <Data fetchedData={fetchedData}/> }
         </header>
     );
 }

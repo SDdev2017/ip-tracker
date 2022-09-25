@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react';
 
 import '../styles/App.scss';
+
 import Search from './SearchComponent';
 import Map from './Map';
 import AlertBox from './ErrorMsg';
 import Footer from './Footer';
+import { isDomain } from '../helpers';
 
 function App() {
 
@@ -15,21 +17,12 @@ function App() {
   const [alertMsg, setAlertMsg] = useState('');
 
   useEffect(() => {
-    const fetchip = async (ip) => {
-      //RegEx checking whether ip parameter is a valid domain or ip address;
-      const re = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
+    const fetchip = async (ip) => {      
       let response = {};
-      
-      if(ip !== ''){
-        if(re.test(ip)){
-          ip = '&domain=' + ip;
-        }else{
-          ip = '&ipAddress=' + ip;
-        }
-      }
+      const parameter = isDomain(ip);
   
       //REST API url
-      const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_r39kpSudYWC0j48z40eei4tD0ODbw${ip}`;
+      const url = `https://geo.ipify.org/api/v2/country,city?apiKey=at_r39kpSudYWC0j48z40eei4tD0ODbw${parameter}`;
 
       try{
         response = await fetch(url);
@@ -38,13 +31,12 @@ function App() {
         setShowAlert(true);
       }
 
-      //check if response status is 200-299. Otherwise show alert box with message to the user.
       if(response.ok){
         let data = await response.json();
         setSearchInput(data.ip);
         setFetchedData(data);
       }else{
-        if(response.status === 400){     
+        if(response.status === 400 || response.status === 422){     
           setAlertMsg(<p>It seems like you have entered invalid IP or domain name.<br/>Please try again.</p>);
           setShowAlert(true);
         }
