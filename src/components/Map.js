@@ -2,25 +2,24 @@ import { MapContainer, TileLayer, Marker, Popup,useMap } from 'react-leaflet'
 import { PropTypes } from 'prop-types';
 
 import '../styles/App.scss';
+import Loader from './loader';
 
-function Map({ fetchedData }){
-    if(fetchedData === null){
-        return null;
-    }
+function Map({ fetchedData }){   
     return(
         <main className="map-container" id='map'>
-        <MapContainer center={[fetchedData.location.lat,fetchedData.location.lng]} zoom={5} scrollWheelZoom={true}>
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <ChangeMapView fetchedData={fetchedData}/>
-            <Marker position={[fetchedData.location.lat,fetchedData.location.lng]}>
-                <Popup>
-                {fetchedData.isp}
-                </Popup>
-            </Marker>
-        </MapContainer>  
+            {fetchedData ? 
+            <MapContainer center={[fetchedData.location.lat,fetchedData.location.lng]} zoom={5} scrollWheelZoom={true}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <ChangeMapView fetchedData={fetchedData}/>
+                <Marker position={[fetchedData.location.lat,fetchedData.location.lng]}>
+                    <Popup>
+                    {fetchedData.isp}
+                    </Popup>
+                </Marker>
+            </MapContainer> : <Loader/>}
         </main>
     );
 }
