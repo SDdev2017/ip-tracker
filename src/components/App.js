@@ -26,7 +26,7 @@ function App() {
 
       try{
         response = await fetch(url);
-      }catch(e){
+      } catch {
         setAlertMsg(<p>It seems like you're not connected to internet.<br/>Please try again.</p>);
         setShowAlert(true);
       }
@@ -35,11 +35,13 @@ function App() {
         let data = await response.json();
         setSearchInput(data.ip);
         setFetchedData(data);
-      }else{
+      } else {
         if(response.status === 400 || response.status === 422){     
           setAlertMsg(<p>It seems like you have entered invalid IP or domain name.<br/>Please try again.</p>);
-          setShowAlert(true);
+        } else {
+          setAlertMsg(<p><strong>{response.status}</strong><br/>{response.statusText}</p>);
         }
+         setShowAlert(true);
       }
     }
 
